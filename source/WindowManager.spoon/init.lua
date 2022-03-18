@@ -4,7 +4,7 @@ obj.__index = obj
 
 -- Metadata
 obj.name = "WindowManager"
-obj.version = "0.0.6"
+obj.version = "0.0.7"
 obj.author = "Jordan Fjellman"
 obj.homepage = "https://github.com/jordanfjellman/hammerspoon-window-manager"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
@@ -29,7 +29,16 @@ obj.animationDuration = 0
 --- Method
 --- Handles the resizing and moving of the focused window
 function obj:resizeAndMove(location)
-  local currentWidth = 50
+  local previousWidth = 50
+  local previouslyFocusedWindowId = nil
+
+  local checkForNewlyFocusedWindow = function ()
+    local isDifferentWindow = previouslyFocusedWindowId ~= hs.window.focusedWindow():id()
+    if isDifferentWindow then
+      previouslyFocusedWindowId = hs.window.focusedWindow():id()
+    end
+    return isDifferentWindow
+  end
 
   local resizeDirectionally = function (direction)
     return function (newWidthPercentage)
@@ -55,14 +64,15 @@ function obj:resizeAndMove(location)
   local _resizeAndMove = function ()
     if location == 'fullscreen' then
       hs.window.focusedWindow():toggleFullscreen()
-      return currentWidth
+      return previousWidth
     end
     local update = location == 'center' and resizeOnCenter or resizeDirectionally(location)
-    return update(nextWidth[currentWidth])
+    local width = checkForNewlyFocusedWindow() and 50 or nextWidth[previousWidth]
+    return update(width)
   end
 
   return function()
-      currentWidth = _resizeAndMove()
+      previousWidth = _resizeAndMove()
   end
 end
 
