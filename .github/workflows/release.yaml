@@ -11,7 +11,7 @@ jobs:
       - name: Zip Spoon Directory
         uses: thedoctor0/zip-release@master
         with:
-          directory: source/WindowManager.spoon/
+          directory: source
           filename: WindowManager.spoon.zip
       - name: Upload Spoon
         uses: ncipollo/release-action@v1
