@@ -4,7 +4,7 @@ obj.__index = obj
 
 -- Metadata
 obj.name = "WindowManager"
-obj.version = "0.0.4"
+obj.version = "0.0.5"
 obj.author = "Jordan Fjellman"
 obj.homepage = "https://github.com/jordanfjellman/hammerspoon-window-manager"
 obj.license = "ISC - https://opensource.org/licenses/ISC"
@@ -66,10 +66,10 @@ function obj:resizeAndMove(location)
   end
 end
 
---- WindowManager:bindHotKeys(mapping)
+--- WindowManager:bindHotkeys(mapping)
 --- Method
 --- Binds hotkeys for WindowManager
-function obj:bindHotKeys(mapping)
+function obj:bindHotkeys(mapping)
   for key, location in pairs(mapping) do
     hs.hotkey.bind(obj.modifiers, key, obj:resizeAndMove(location))
   end
