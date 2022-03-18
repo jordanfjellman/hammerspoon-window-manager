@@ -1,0 +1,20 @@
+name: Release Spoon
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Zip Spoon Directory
+        uses: thedoctor0/zip-release@master
+        with:
+          directory: source/WindowManager.spoon/
+          filename: WindowManager.spoon.zip
+      - name: Upload Spoon
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: WindowManager.spoon.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
