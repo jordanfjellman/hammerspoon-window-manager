@@ -13,8 +13,16 @@ jobs:
         with:
           directory: source
           filename: WindowManager.spoon.zip
+      - name: Bump Version and Push Tag
+        id: tag_version
+        uses: matthiewudutour/github-tag-action@v6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Upload Spoon
         uses: ncipollo/release-action@v1
         with:
           artifacts: WindowManager.spoon.zip
+          body: ${{ steps.tag_version.outputs.changelog }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          tag: ${{ steps.tag_version.outputs.new_tag }}
           token: ${{ secrets.GITHUB_TOKEN }}
