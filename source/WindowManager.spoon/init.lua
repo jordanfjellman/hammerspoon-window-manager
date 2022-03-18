@@ -4,10 +4,10 @@ obj.__index = obj
 
 -- Metadata
 obj.name = "WindowManager"
-obj.version = "0.0.5"
+obj.version = "0.0.6"
 obj.author = "Jordan Fjellman"
 obj.homepage = "https://github.com/jordanfjellman/hammerspoon-window-manager"
-obj.license = "ISC - https://opensource.org/licenses/ISC"
+obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 --- WindowManager.modifiers
 --- Variable
