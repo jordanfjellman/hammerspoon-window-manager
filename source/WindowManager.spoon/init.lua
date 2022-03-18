@@ -1,13 +1,13 @@
-local WindowManager = {}
+local obj = {}
 
-WindowManager.__index = WindowManager
+obj.__index = obj
 
 -- Metadata
-WindowManager.name = "WindowManager"
-WindowManager.version = "0.1.0"
-WindowManager.author = "Jordan Fjellman"
-WindowManager.homepage = "https://github.com/jordanfjellman/hammerspoon-window-manager"
-WindowManager.license = "ISC - https://opensource.org/licenses/ISC"
+obj.name = "WindowManager"
+obj.version = "0.0.4"
+obj.author = "Jordan Fjellman"
+obj.homepage = "https://github.com/jordanfjellman/hammerspoon-window-manager"
+obj.license = "ISC - https://opensource.org/licenses/ISC"
 
 --- WindowManager.modifiers
 --- Variable
@@ -15,7 +15,7 @@ WindowManager.license = "ISC - https://opensource.org/licenses/ISC"
 ---
 --- Notes:
 --- * Default Value: `{ "shift", "alt", "ctrl" }` (also known as "meh")
-WindowManager.modifiers = { "shift", "alt", "ctrl" }
+obj.modifiers = { "shift", "alt", "ctrl" }
 
 --- WindowManager.animationDuration
 --- Variable
@@ -23,12 +23,12 @@ WindowManager.modifiers = { "shift", "alt", "ctrl" }
 ---
 --- Notes:
 --- * Default Value: 0
-WindowManager.animationDuration = 0
+obj.animationDuration = 0
 
 --- WindowManager:resizeAndMove(location)
 --- Method
 --- Handles the resizing and moving of the focused window
-function WindowManager:resizeAndMove(location)
+function obj:resizeAndMove(location)
   local currentWidth = 50
 
   local resizeDirectionally = function (direction)
@@ -69,16 +69,17 @@ end
 --- WindowManager:bindHotKeys(mapping)
 --- Method
 --- Binds hotkeys for WindowManager
-function WindowManager:bindHotKeys(mapping)
+function obj:bindHotKeys(mapping)
   for key, location in pairs(mapping) do
-    hs.hotkey.bind(WindowManager.modifiers, key, WindowManager:resizeAndMove(location))
+    hs.hotkey.bind(obj.modifiers, key, obj:resizeAndMove(location))
   end
 end
 
 --- WindowManager:init()
 --- Method
 --- Sets window animation duration. Called when Spoon is loaded.
-function WindowManager:init()
-  hs.window.animationDuration = WindowManager.animationDuration
+function obj:init()
+  hs.window.animationDuration = obj.animationDuration
 end
 
+return obj
